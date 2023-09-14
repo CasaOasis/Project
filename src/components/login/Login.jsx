@@ -5,7 +5,6 @@ import "./login.css";
 function Login() {
   return (
     <div className="login templete d-flex justify-content-center align-items-center 100-w vh-100">
-      <h1>Hola</h1>
       <div className="p-3 50-w rounded bg-white">
         <form>
           <div className="text-center">
