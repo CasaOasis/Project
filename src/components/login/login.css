@@ -1,0 +1,22 @@
+.login{
+    font-size: 2vh;
+    font-family: 'Itim', cursive;
+}
+
+#buttomSubmit{
+    font-size: 20px;
+}
+
+#Password{
+    background-color: #EBEBEB;
+}
+
+#Email{
+    background-color: #EBEBEB;
+}
+
+@media screen and (max-width: 600px) {
+    .imageCenter{
+        width: 350px;
+    }
+}
