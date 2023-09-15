@@ -7,13 +7,22 @@
     font-size: 20px;
 }
 
-#Password{
+#Name{
+    background-color: #EBEBEB;
+}
+
+#selectRol{
     background-color: #EBEBEB;
 }
 
 #Email{
     background-color: #EBEBEB;
 }
+
+#Password{
+    background-color: #EBEBEB;
+}
+
 
 .buttomSubmit{
     padding: 0.4rem 2.5rem;
@@ -35,6 +44,7 @@
     height: 15rem;
     padding-left: 2rem;
 }
+
 
 /* .loader-container {
     width: 100%;

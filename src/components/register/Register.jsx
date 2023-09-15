@@ -28,6 +28,25 @@ function Register() {
                 />
               </div>
               <div class="form-group mb-4 input-group-lg">
+                <label for="exampleInputEmail1">Nombre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Name"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter name"
+                ></input>
+              </div>
+              <div class="form-group mb-4 input-group-lg">
+                <label for="exampleInputEmail1">Cargo</label>
+                <select name="selectRol" id="selectRol" class="form-control">
+                  <option value="def">Elegir</option>
+                  <option value="admin">Administrador</option>
+                  <option value="encargado">Encargado</option>
+                  <option value="lector">Lector</option>
+                </select>
+              </div>
+              <div class="form-group mb-4 input-group-lg">
                 <label for="exampleInputEmail1">Correo</label>
                 <input
                   type="email"
@@ -40,6 +59,7 @@ function Register() {
               <div class="form-group mb-5 input-group-lg">
                 <label for="exampleInputPassword1">Contraseña</label>
                 <input
+                  type="password"
                   class="form-control" //Cambiar color
                   id="Password"
                   placeholder="Password"
