@@ -7,6 +7,7 @@ import './App.css'
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Register from './components/register/Register';
+import DashBoardUser from './components/dashboard/DashBoardUser';
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
   return (
     <>
       <div>
-        {usuario ? <Home /> : <Register />}{" "}
+        {usuario ? <Home /> : <DashBoardUser />}{" "}
         {/*Si la variable de estado es null se redirigira a login ya que no hay un dato valido*/}
         {/*Pero si, si tiene un dato valido, se ridirigira Home*/}
       </div>
