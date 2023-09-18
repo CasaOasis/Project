@@ -1,11 +1,17 @@
-import React from 'react'
+import React from "react";
+import "./Navbar.scss";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Route } from "react-router-dom";
 
-function DashboardNavbar() {
+const DashboardNavbar = () => {
   return (
     <>
-    <h1>Hola</h1>
+      <div className="navbar">
+        <div className="label">
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default DashboardNavbar
+export default DashboardNavbar;
