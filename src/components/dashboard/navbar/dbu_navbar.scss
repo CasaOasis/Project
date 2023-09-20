@@ -22,3 +22,14 @@ $darknav: #282828;
     background-color: $darknav;
     color: $light;
 }
+
+.img img{
+    margin-right: 1rem;
+    width: 100px;
+}
+
+@media screen and (max-width: 1300px) {
+    .navbar .label{
+    width: 14.3rem;
+}
+}

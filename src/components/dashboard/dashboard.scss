@@ -1,0 +1,13 @@
+.flex{
+    display: flex;
+}
+
+.content{
+    width: 100rem;
+}
+
+@media screen and (max-width: 1300px) {
+    .content{
+        width: 80rem;
+    }
+}

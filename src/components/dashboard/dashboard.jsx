@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import Dbu_navbar from "../dashboard/navbar/dbu_navbar";
 import Dbu_sidebar from "./sidebar/dbu_sidebar";
+import "./dashboard.scss"
 
 //Importar pages
 import Miembros from "./pages/Miembros";
