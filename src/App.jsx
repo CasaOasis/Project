@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css'
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
+import Dashboard from './components/dashboard/dashboard';
 
 function App() {
 
