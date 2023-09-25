@@ -1,23 +1,45 @@
-import React from 'react'
-import { Link } from "react-router-dom";
-import "./dbu_sidebar.scss"
+import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./dbu_sidebar.scss";
+import * as FaIcons from "react-icons/fa";
+
+//activeClassName active se activa cuando se le da click
 
 function Dbu_sidebar() {
   return (
     <div className="sidebar">
       <ul>
         <li>
-          <Link to="/dashboard/miembros">Miembros</Link>
+          <NavLink
+            to="/dashboard/miembros"
+            className="w-100 d-inline-block px-1" //Clases de bootstrap
+            activeClassName="active" //activeClassName active se activa cuando se le da click
+          >
+            <FaIcons.FaUsers /> Miembros
+          </NavLink>
         </li>
         <li>
-          <Link to="registro">Registro</Link>
+          <NavLink
+            to="registro"
+            className="w-100 d-inline-block px-1" //Clases de bootstrap
+            activeClassName="active" //activeClassName active se activa cuando se le da click
+          >
+            <FaIcons.FaUserPlus /> Registro
+          </NavLink>
         </li>
         <li>
-          <Link to="programa">Programa</Link>
+          <NavLink
+            to="programa"
+            className="w-100 d-inline-block px-1" //Clases de bootstrap
+            activeClassName="active" //activeClassName active se activa cuando se le da click
+          >
+            <FaIcons.FaRegClipboard /> Programa
+          </NavLink>
         </li>
       </ul>
     </div>
   );
 }
 
-export default Dbu_sidebar
+export default Dbu_sidebar;

@@ -15,7 +15,7 @@ $darknav: #282828;
 }
 
 .sidebar {
-  width: 18rem;
+  width: 20rem;
   height: calc(100vh - 52px);
   border-right: 1px solid $dark;
   background-color: $darknav;
@@ -30,6 +30,17 @@ $darknav: #282828;
         text-decoration: none;
         color: $light;
         font-size: 1.3rem;
+        &.active{
+          background-color: #555555;
+          padding: 0.3rem;
+        }
+      }
+    }
+    li:hover{
+      background-color: #555555;
+          padding: 0.0rem;
+      a{
+        font-size: 1.4rem;
       }
     }
   }

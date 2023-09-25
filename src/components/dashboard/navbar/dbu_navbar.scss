@@ -17,7 +17,7 @@ $darknav: #282828;
 }
 
 .navbar .label{
-    width: 18rem;
+    width: 20rem;
     height: 52px;
     background-color: $darknav;
     color: $light;
@@ -28,8 +28,22 @@ $darknav: #282828;
     width: 100px;
 }
 
+.right{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.navbar-menu{
+    visibility: hidden;
+}
 @media screen and (max-width: 1300px) {
     .navbar .label{
     width: 14.3rem;
+}
+.navbar-menu{
+    visibility:visible;
+    padding-right: 1rem;
 }
 }

@@ -4,6 +4,7 @@ import "./login.css";
 import LoadingScreen from "../LoadingScreen";
 import Lottie from "lottie-react";
 import loadingbar from "../../assets/animations/loadingbar.json";
+import * as FaIcons from "react-icons/fa";
 
 function Login() {
     //Loading Screen
