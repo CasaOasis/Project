@@ -13,11 +13,24 @@ import Miembros from "./components/dashboard/pages/Miembros.jsx";
 import Registro from "./components/dashboard/pages/Registro.jsx";
 import Programa from "./components/dashboard/pages/Programa.jsx";
 import Home from "./components/home/Home.jsx";
+import Credo from "./components/home/pages/credo.jsx";
+import InfoPage from "./components/home/pages/info.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/*",
     element: <Home />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "credo",
+        element: <Credo />,
+      },
+      {
+        path: 'about',
+        element: <InfoPage/>
+      }
+    ],
   },
   {
     path: "/dashboard",
