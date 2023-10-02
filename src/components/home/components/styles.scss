@@ -1,0 +1,71 @@
+$light: #ffffff;
+$dark: #3a3a3a;
+$darknav: #282828;
+
+.sizebox{
+  height: 5rem;
+}
+
+//Navbar
+
+.navbar1 {
+  position: fixed;
+  width: 100%;
+  height: 5rem;
+  background-color: $light;
+  .body {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    .left .start img {
+      width: 100px;
+    }
+    .right ul {
+      list-style: none;
+      display: flex;
+      padding: 0rem 1rem;
+      margin: 0;
+      li {
+        padding: 0rem 0.5rem;
+      }
+      a {
+        text-decoration: none;
+        font-size: 20px;
+        color: $darknav;
+      }
+    }
+    .btn_menu {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .navbar1 .body .btn_menu {
+    display: flex;
+    box-shadow: none;
+    outline: none;
+  }
+  .navbar1 .right .links {
+    display: none;
+    flex-direction: column; /* Cambia la dirección del flex a columna */
+    align-items: center;
+    position: absolute;
+    top: 5rem; /* Ajusta la posición vertical según la altura de tu barra de navegación */
+    left: 0;
+    background-color: #ffffff;
+    width: 100%;
+    ul {
+      flex-direction: column;
+      text-align: center;
+      width: 100%;
+      li {
+        padding: 1rem;
+      }
+    }
+  }
+
+  .navbar1 .right .links.isActive {
+    display: flex;
+  }
+}
