@@ -18,7 +18,6 @@ function Login() {
   return (
     <div className="login templete d-flex justify-content-center align-items-center 100-w vh-100">
       <div className="p-3 50-w rounded bg-white">
-        <h1>Hola</h1>
         <form>
           <div className="text-center">
             <img className="imageCenter mb-4" src={logo} alt="" width="400px" />
