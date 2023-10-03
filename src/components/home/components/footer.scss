@@ -1,0 +1,124 @@
+$light: #ffffff;
+$dark: #3a3a3a;
+$darknav: #282828;
+
+//Footer
+.footer {
+  width: 100%;
+  display: flex;
+  .body {
+    width: 100%;
+  }
+  .start {
+    width: 100%;
+    padding: 4rem 0rem 0rem 0rem;
+    .img {
+      padding: 0rem 12rem;
+      img {
+        width: 100%;
+      }
+    }
+    .social {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 10rem;
+        ul {
+          width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding: 0;
+        li {
+          list-style: none;
+          padding: 0rem 2rem;
+          a {
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: $darknav;
+          }
+        }
+      }
+    }
+  }
+  .end {
+    width: 100%;
+    background-color: $light;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente en la pantalla */
+    align-items: center;
+  }
+
+  .card {
+    width: 80%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(243, 243, 243);
+    border-radius: 25px;
+    border: 0px;
+    padding: 1rem;
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h2 {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+.copyright {
+  text-align: center;
+}
+
+@media screen and (max-width: 650px) {
+  .footer {
+    flex-direction: column;
+  }
+}
+
+/* Media Queries para ajustar el ancho del contenedor en pantallas más pequeñas */
+@media screen and (max-width: 1268px) {
+  .footer {
+    .start{
+        .img{
+            padding: 0rem 4rem;
+        }
+    }
+    .end {
+      .card {
+        width: 90%;
+
+      }
+    }
+  }
+}
+
+/* Media Queries para pantallas aún más pequeñas si es necesario */
+@media screen and (max-width: 1080px) {
+      .footer {
+    .end {
+      .card {
+        width: 90%;
+        height: auto;
+        .info {
+          h2 {
+            font-size: 1rem;
+            font-weight: bold;
+          }
+
+          h3 {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}

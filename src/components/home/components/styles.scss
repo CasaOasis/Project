@@ -1,6 +1,7 @@
 $light: #ffffff;
 $dark: #3a3a3a;
 $darknav: #282828;
+$black: #000000;
 
 .sizebox{
   height: 5rem;
@@ -18,7 +19,7 @@ $darknav: #282828;
     justify-content: space-between;
     padding: 1rem;
     .left .start img {
-      width: 100px;
+      width: 50px;
     }
     .right ul {
       list-style: none;
@@ -31,7 +32,8 @@ $darknav: #282828;
       a {
         text-decoration: none;
         font-size: 20px;
-        color: $darknav;
+        color: $black;
+        font-weight: normal;
       }
     }
     .btn_menu {
@@ -40,11 +42,13 @@ $darknav: #282828;
   }
 }
 
-@media screen and (max-width: 800px) {
+
+@media screen and (max-width: 650px) {
   .navbar1 .body .btn_menu {
     display: flex;
     box-shadow: none;
     outline: none;
+    font-size: 2rem;
   }
   .navbar1 .right .links {
     display: none;
@@ -59,8 +63,9 @@ $darknav: #282828;
       flex-direction: column;
       text-align: center;
       width: 100%;
-      li {
-        padding: 1rem;
+      a{
+        padding: 2rem 0rem;
+        font-size: 1.5rem;
       }
     }
   }
@@ -68,4 +73,5 @@ $darknav: #282828;
   .navbar1 .right .links.isActive {
     display: flex;
   }
+
 }

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.jpg";
+import icon1x1 from "../../../assets/icon1x1.jpg";
 import "./styles.scss";
 import * as FaIcons from "react-icons/fa";
+import * as Gia from "react-icons/gr";
 
 function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -16,7 +18,7 @@ function Navbar() {
       <div className="body">
         <div className="left">
           <div className="start">
-            <img src={logo} alt="" />
+            <img src={icon1x1} alt="" />
           </div>
         </div>
         <div className="right">
@@ -42,24 +44,31 @@ function Navbar() {
           <div className="social">
             <ul>
               <li>
-                <a href="">
+                <a
+                  href="https://instagram.com/casaoasisgt?igshid=MzRlODBiNWFlZA=="
+                  target="_blank"
+                >
                   <FaIcons.FaInstagram />
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="" target="_blank">
                   <FaIcons.FaYoutube />
                 </a>
               </li>
               <li>
-                <a href="">
+                <a
+                  href="https://www.facebook.com/profile.php?id=100094911880619&mibextid=LQQJ4d"
+                  target="_blank"
+                >
                   <FaIcons.FaFacebook />
                 </a>
               </li>
             </ul>
           </div>
           <button className="btn btn_menu" onClick={toggleMenu}>
-            <FaIcons.FaBars />
+            {/* Para cambiar de icono del menu a close */}
+            {isMenuOpen ? <Gia.GrClose /> : <FaIcons.FaBars />}
           </button>
         </div>
       </div>
