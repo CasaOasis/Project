@@ -1,9 +1,15 @@
 import React from 'react'
+import Navbar from "../home/components/navbar";
+import Footer from "../home/components/footer";
 
 function Error() {
   return (
-    <div className="templete d-flex justify-content-center align-items-center 100-w vh-100">
-      Error
+    <div>
+      <Navbar/>
+      <div className="container">
+        
+      </div>
+      <Footer/>
     </div>
   );
 }
