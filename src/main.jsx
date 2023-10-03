@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 //Mandando a llamar los componentes
-import Error from "./components/error/Error.jsx";
+import ErrorPage from "./components/error/Error.jsx";
 import Dashboard from "./components/dashboard/dashboard.jsx";
 
 //Mandando a llamar los componentes de dashboard
@@ -20,16 +20,15 @@ const router = createBrowserRouter([
   {
     path: "/*",
     element: <Home />,
-    errorElement: <Error />,
     children: [
       {
         path: "credo",
         element: <Credo />,
       },
       {
-        path: 'about',
-        element: <InfoPage/>
-      }
+        path: "about",
+        element: <InfoPage />,
+      },
     ],
   },
   {
@@ -57,7 +56,6 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <App />,
-    errorElement: <Error />,
   },
 ]);
 
