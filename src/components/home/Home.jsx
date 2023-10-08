@@ -13,13 +13,13 @@ function Home() {
     <div>
       <Navbar />
       <div className="sizebox"></div>
-      <div className="contentpages">
+      <navbar className="contentpages">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/credo" element={<CredoPage />} />
           <Route path="/about" element={<InfoPage />} />
         </Routes>
-      </div>
+      </navbar>
       <div className="footer">
         <Footer/>
       </div>

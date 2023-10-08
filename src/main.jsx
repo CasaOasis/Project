@@ -2,19 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-//Mandando a llamar los componentes
-import ErrorPage from "./components/error/Error.jsx";
-import Dashboard from "./components/dashboard/dashboard.jsx";
-
-//Mandando a llamar los componentes de dashboard
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+//Mandando a llamar los componentes
+import Dashboard from "./components/dashboard/dashboard.jsx";
+//Mandando a llamar los componetes en pagina principal
+import Home from "./components/home/Home.jsx";
+import Credo from "./components/home/pages/credo.jsx";
+import InfoPage from "./components/home/pages/info.jsx";
+//Mandando a llamar los componentes de dashboard
 import DbuHome from "./components/dashboard/pages/Home/DbuHome.jsx";
 import Miembros from "./components/dashboard/pages/Miembros.jsx";
 import Registro from "./components/dashboard/pages/Registro.jsx";
 import Programa from "./components/dashboard/pages/Programa.jsx";
-import Home from "./components/home/Home.jsx";
-import Credo from "./components/home/pages/credo.jsx";
-import InfoPage from "./components/home/pages/info.jsx";
 
 const router = createBrowserRouter([
   {
