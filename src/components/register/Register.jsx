@@ -3,17 +3,19 @@ import logo from "../../assets/logo.jpg";
 import LoadingScreen from "../LoadingScreen";
 
 function Register() {
-  //Loading Screen
-  const [loading, setLoading] = useState(false); //set loading
+  // Loading Screen
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 3000); //Time
+    }, 3000); // Tiempo de carga
   }, []);
+
   return (
     <div className="containerr">
-      {loading ? ( //funtion loading
+      {loading ? (
         <LoadingScreen />
       ) : (
         <div className="login templete d-flex justify-content-center align-items-center 100-w vh-100">
@@ -27,28 +29,52 @@ function Register() {
                   width="400px"
                 />
               </div>
-              <div class="form-group mb-4 input-group-lg">
-                <label for="exampleInputEmail1">Correo</label>
+
+              {/* User name */}
+              <div className="form-group mb-4 input-group-lg">
+                <label htmlFor="Name">Nombre</label>
+                <input
+                  className="form-control"
+                  id="Name"
+                  placeholder="Nombre"
+                />
+              </div>
+
+              {/* Email */}
+              <div className="form-group mb-4 input-group-lg">
+                <label htmlFor="Email">Correo</label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="Email"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
-                ></input>
+                />
               </div>
-              <div class="form-group mb-5 input-group-lg">
-                <label for="exampleInputPassword1">Contraseña</label>
+
+              {/* Password */}
+              <div className="form-group mb-4 input-group-lg">
+                <label htmlFor="Password">Contraseña</label>
                 <input
-                  class="form-control" //Cambiar color
+                  className="form-control"
                   id="Password"
                   placeholder="Password"
-                ></input>
+                />
               </div>
+
+              {/* Role */}
+              <div className="form-group mb-4 input-group-lg">
+                <label htmlFor="UserRole">Rol</label>
+                <select className="form-control" id="UserRole">
+                  <option value="admin">Admin</option>
+                  <option value="obrero">Obrero</option>
+                </select>
+              </div>
+
               <div className="text-center">
                 <button
                   type="submit"
-                  class="buttomSubmit btn btn-dark btn-lg mb-4 "
+                  className="buttomSubmit btn btn-dark btn-lg mb-4"
                 >
                   Ingresar
                 </button>

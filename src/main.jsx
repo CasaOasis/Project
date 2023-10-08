@@ -15,12 +15,12 @@ import Programa from "./components/dashboard/pages/Programa.jsx";
 import Home from "./components/home/Home.jsx";
 import Credo from "./components/home/pages/credo.jsx";
 import InfoPage from "./components/home/pages/info.jsx";
+import Register from "./components/register/Register.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/*",
+    path: "*",
     element: <Home />,
-    errorElement: <Error />,
     children: [
       {
         path: "credo",
@@ -57,7 +57,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <App />,
-    errorElement: <Error />,
+  },
+  {
+    path: "/register",
+    element: <Register/>
   },
 ]);
 

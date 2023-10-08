@@ -1,0 +1,50 @@
+/* error.scss */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.error {
+  width: 45%; /* Tamaño de la animación */
+}
+
+.error-message {
+  display: flex;
+  flex-direction: row;
+  font-size: 2.5rem;
+  margin-top: 4rem; /* Espacio entre la animación y el mensaje de error */
+  p {
+    font-weight: bold;
+    margin: 0 0.5rem;
+  }
+}
+
+.back-home {
+  margin-top: 2rem; /* Espacio entre el mensaje de error y el enlace de regreso */
+  text-decoration: none;
+  font-size: 1.4rem;
+  color: #3498db; /* Color del enlace */
+  cursor: pointer;
+}
+
+.back-home:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 650px) {
+  .error {
+    margin-top: 4rem;
+    width: 80%;
+  }
+  
+  .error-message{
+    font-size: 1.5rem;
+  }
+  .back-home{
+    p{
+        font-size: 1.2rem;
+    }
+  }
+}
