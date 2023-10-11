@@ -6,7 +6,6 @@ import Lottie from "lottie-react";
 import loadingbar from "../../assets/animations/loadingbar.json";
 
 function Login() {
-<<<<<<< HEAD
   //Loading Screen
   const [loading, setLoading] = useState(false); //set loading
   useEffect(() => {
@@ -17,18 +16,6 @@ function Login() {
   }, []);
   return (
     <div className="containerr">
-=======
-    //Loading Screen
-    const [loading, setLoading] = useState(false); //set loading
-    useEffect(() => {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000); //Time
-    }, []);
-  return (
-        <div className="containerr">
->>>>>>> mainpage
       {loading ? ( //funtion loading
         <LoadingScreen />
       ) : (
