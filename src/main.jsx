@@ -27,9 +27,9 @@ const router = createBrowserRouter([
         element: <Credo />,
       },
       {
-        path: "about",
-        element: <InfoPage />,
-      },
+        path: 'about',
+        element: <InfoPage/>
+      }
     ],
   },
   {
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <Register />,
+    element: <Register/>
   },
 ]);
 

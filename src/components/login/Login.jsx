@@ -6,17 +6,19 @@ import Lottie from "lottie-react";
 import loadingbar from "../../assets/animations/loadingbar.json";
 
 function Login() {
-  //Loading Screen
-  const [loading, setLoading] = useState(false); //set loading
+  // Loading Screen
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 3000); //Time
+    }, 3000);
   }, []);
+
   return (
     <div className="containerr">
-      {loading ? ( //funtion loading
+      {loading ? (
         <LoadingScreen />
       ) : (
         <div className="login templete d-flex justify-content-center align-items-center 100-w vh-100">
@@ -30,20 +32,20 @@ function Login() {
                   width="400px"
                 />
               </div>
-              <div class="form-group mb-4 input-group-lg">
-                <label for="exampleInputEmail1">Correo</label>
+              <div className="form-group mb-4 input-group-lg">
+                <label htmlFor="Email">Correo</label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="Email"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
                 ></input>
               </div>
-              <div class="form-group mb-5 input-group-lg">
-                <label for="exampleInputPassword1">Contraseña</label>
+              <div className="form-group mb-4 input-group-lg">
+                <label htmlFor="Password">Contraseña</label>
                 <input
-                  class="form-control" //Cambiar color
+                  className="form-control"
                   id="Password"
                   placeholder="Password"
                 ></input>
@@ -51,7 +53,7 @@ function Login() {
               <div className="text-center">
                 <button
                   type="submit"
-                  class="buttomSubmit btn btn-dark btn-lg mb-4 "
+                  className="buttomSubmit btn btn-dark btn-lg mb-4"
                 >
                   Ingresar
                 </button>
