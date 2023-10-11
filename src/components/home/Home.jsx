@@ -7,6 +7,7 @@ import "./components/styles.scss";
 import CredoPage from "./pages/credo";
 import HomePage from "./pages/home";
 import InfoPage from "./pages/info";
+import Error from "../error/Error";
 
 function Home() {
   return (
@@ -18,10 +19,11 @@ function Home() {
           <Route path="/" element={<HomePage />} />
           <Route path="/credo" element={<CredoPage />} />
           <Route path="/about" element={<InfoPage />} />
+          <Route path="*" element={<Error/>} />
         </Routes>
       </navbar>
       <div className="footer">
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );

@@ -4,8 +4,17 @@
     font-family: 'Itim', cursive;
 }
 
+
 #buttomSubmit{
     font-size: 20px;
+}
+
+#UserRole{
+    background-color: #EBEBEB;
+}
+
+#Name{
+    background-color: #EBEBEB;
 }
 
 #Password{
