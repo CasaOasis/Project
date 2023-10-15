@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <div>
-        {usuario ? <Home /> : <Login />}{" "}
+        {usuario ? <Dashboard /> : <Login />}{" "}
         {/*Si la variable de estado es null se redirigira a login ya que no hay un dato valido*/}
         {/*Pero si, si tiene un dato valido, se ridirigira Home*/}
       </div>

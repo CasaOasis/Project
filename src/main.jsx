@@ -16,6 +16,7 @@ import Home from "./components/home/Home.jsx";
 import Credo from "./components/home/pages/credo.jsx";
 import InfoPage from "./components/home/pages/info.jsx";
 import Register from "./components/register/Register.jsx";
+import Login from "./components/login/Login.jsx";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <App />,
+    element: <Login />,
   },
   {
     path: "/register",
