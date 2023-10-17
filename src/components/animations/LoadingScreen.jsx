@@ -1,8 +1,8 @@
 import React from 'react'
-import logo from "../assets/logo.jpg";
-import "./login/login.css";
+import logo from "../../assets/logo.jpg";
+import "../login/login.css";
 import Lottie from "lottie-react";
-import loadingbar from "../assets/animations/loadingbar.json";
+import loadingbar from "../../assets/animations/loadingbar.json";
 
 function LoadingScreen() {
   return (

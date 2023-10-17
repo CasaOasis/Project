@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.jpg";
-import LoadingScreen from "../LoadingScreen";
+import LoadingScreen from "../animations/LoadingScreen";
 
 function Register() {
   // Loading Screen
@@ -19,6 +19,8 @@ function Register() {
         <LoadingScreen />
       ) : (
         <div className="login templete d-flex justify-content-center align-items-center 100-w vh-100">
+
+          {/* Logo */}
           <div className="p-3 50-w rounded bg-white">
             <form>
               <div className="text-center">
@@ -71,6 +73,7 @@ function Register() {
                 </select>
               </div>
 
+              {/* Button submit */}
               <div className="text-center">
                 <button
                   type="submit"

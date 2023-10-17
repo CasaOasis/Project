@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.jpg";
 import "./login.css";
-import LoadingScreen from "../LoadingScreen";
-import Lottie from "lottie-react";
-import loadingbar from "../../assets/animations/loadingbar.json";
+import LoadingScreen from "../animations/LoadingScreen";
 
 function Login() {
   //Loading Screen
@@ -22,6 +20,7 @@ function Login() {
         <div className="login templete d-flex justify-content-center align-items-center 100-w vh-100">
           <div className="p-3 50-w rounded bg-white">
             <form>
+              {/* Logo */}
               <div className="text-center">
                 <img
                   className="imageCenter mb-4"
@@ -30,24 +29,30 @@ function Login() {
                   width="400px"
                 />
               </div>
-              <div class="form-group mb-4 input-group-lg">
-                <label for="exampleInputEmail1">Correo</label>
+
+              {/* Seccion email */}
+              <div className="form-group mb-4 input-group-lg">
+                <label htmlFor="Email">Correo</label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="Email"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
-                ></input>
+                />
               </div>
-              <div class="form-group mb-5 input-group-lg">
-                <label for="exampleInputPassword1">Contraseña</label>
+
+              {/* Seccion password */}
+              <div className="form-group mb-4 input-group-lg">
+                <label htmlFor="Password">Contraseña</label>
                 <input
-                  class="form-control" //Cambiar color
+                  className="form-control"
                   id="Password"
                   placeholder="Password"
-                ></input>
+                />
               </div>
+
+              {/* Button submit */}
               <div className="text-center">
                 <button
                   type="submit"
