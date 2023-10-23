@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom";
 import Lottie from "lottie-react";
 import error from "../../assets/animations/error.json";
 import './error.scss'
-import Navbar from '../home/components/navbar';
-import Footer from '../home/components/footer';
 
 function Error() {
   return (
