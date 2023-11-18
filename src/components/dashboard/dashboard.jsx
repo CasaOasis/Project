@@ -18,7 +18,7 @@ function dashboard() {
         <div className="content">
           <Routes>
             <Route path="/dashboard/miembros" component={Miembros} />
-          </Routes>
+          </Routes>|
           <Outlet />
         </div>
       </div>
