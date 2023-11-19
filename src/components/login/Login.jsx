@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.jpg";
 import "./login.css";
 import LoadingScreen from "../animations/LoadingScreen";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
 function Login() {
   //Loading Screen
@@ -12,6 +14,31 @@ function Login() {
       setLoading(false);
     }, 3000); //Time
   }, []);
+
+  //Login
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleChange = ({ target: { name, value } }) => {
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('')
+    try {
+      await login(user.email, user.password);
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error.code);
+    }
+  };
   return (
     <div className="containerr">
       {loading ? ( //funtion loading
@@ -19,7 +46,7 @@ function Login() {
       ) : (
         <div className="login templete d-flex justify-content-center align-items-center 100-w vh-100">
           <div className="p-3 50-w rounded bg-white">
-            <form>
+            <form onSubmit={handleSubmit}>
               {/* Logo */}
               <div className="text-center">
                 <img
@@ -36,9 +63,11 @@ function Login() {
                 <input
                   type="email"
                   className="form-control"
-                  id="Email"
+                  id="email"
+                  name="email"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
+                  onChange={handleChange}
                 />
               </div>
 
@@ -47,8 +76,10 @@ function Login() {
                 <label htmlFor="Password">Contraseña</label>
                 <input
                   className="form-control"
-                  id="Password"
+                  id="password"
+                  name="password"
                   placeholder="Password"
+                  onChange={handleChange}
                 />
               </div>
 
@@ -56,7 +87,7 @@ function Login() {
               <div className="text-center">
                 <button
                   type="submit"
-                  class="buttomSubmit btn btn-dark btn-lg mb-4 "
+                  className="buttomSubmit btn btn-dark btn-lg mb-4 "
                 >
                   Ingresar
                 </button>

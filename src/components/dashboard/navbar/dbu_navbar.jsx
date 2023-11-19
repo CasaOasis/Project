@@ -6,7 +6,7 @@ import * as FaIcons from "react-icons/fa";
 function Dbu_navbar() {
   return (
     <div>
-      <div className="navbar">
+      <div className="navbarr">
         <div className="label"></div>
         <div className="right">
           <div className="img">

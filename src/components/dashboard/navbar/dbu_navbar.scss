@@ -1,4 +1,4 @@
-*{
+body{
     padding: 0;
     margin: 0;
 }
@@ -8,22 +8,23 @@ $dark: #3A3A3A;
 $darknav: #282828;
 
 
-.navbar{
+.navbarr{
+    display: flex;
+    justify-content: space-between;
     height: 52px;
     background-color: $light;
-    padding: 0;
     text-align: center;
     border-bottom: 1px solid grey;
 }
 
-.navbar .label{
+.navbarr .label{
     width: 20rem;
-    height: 52px;
+    height: 50px;
     background-color: $darknav;
     color: $light;
 }
 
-.img img{
+.navbarr .right .img img{
     margin-right: 1rem;
     width: 100px;
 }
@@ -39,7 +40,7 @@ $darknav: #282828;
     visibility: hidden;
 }
 @media screen and (max-width: 1300px) {
-    .navbar .label{
+    .navbarr .label{
     width: 14.3rem;
 }
 .navbar-menu{
