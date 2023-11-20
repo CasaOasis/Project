@@ -69,10 +69,8 @@ export function AuthProvider({ children }) {
             email: currentUser.email,
             displayName: currentUser.displayName,
             rol: rol,
-            photoURL: currentUser.photoURL,
           };
           setUser(userData);
-          console.log(currentUser.photoURL);
         } catch (error) {
           console.error("Error fetching user role:", error);
         }
@@ -86,7 +84,6 @@ export function AuthProvider({ children }) {
     return () => unsubscribe();
   }, []);
 
-  
 
   return (
     <authContext.Provider value={{ signup, login, user, logout, loading}}>

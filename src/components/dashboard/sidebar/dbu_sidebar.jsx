@@ -61,8 +61,8 @@ function Dbu_sidebar() {
             <div className="user-photo mt-5 position-relative ">
               <img
                 src={icon1x1}
-                alt="Atavar"
-                className="avatar rounded-circle position-absolute top-0 start-50 translate-middle"
+                alt="..."
+                className="rounded-circle position-absolute top-0 start-50 translate-middle"
               ></img>
             </div>
           </div>
@@ -75,14 +75,14 @@ function Dbu_sidebar() {
               <span className="text text-start">
                 <div className="settings">
                   <div className="mb-3">
-                    <label for="formFile" class="form-label">
+                    <label className="form-label">
                       Sube tu foto de perfil
                     </label>
                     <input
                       className="form-control"
                       type="file"
-                      id="updateimage"
-                      name="updateimage"
+                      id="formFile"
+                      name="update"
                       onChange={handlechange}
                     ></input>
                     <div className="submit-image-profile text-center pt-4">
