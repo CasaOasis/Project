@@ -43,5 +43,12 @@ $darknav: #282828;
         font-size: 1.4rem;
       }
     }
+  }.box{
+    height: 7rem;
+  }.custom-bg-dark {
+  background-color: #1c1c1c; /* Cambia este valor al color oscuro deseado */
+}
+  .user-photo img{
+    width:7rem;
   }
 }

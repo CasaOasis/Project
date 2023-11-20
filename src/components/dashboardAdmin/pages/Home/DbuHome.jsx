@@ -4,9 +4,9 @@ import "./dbuHome.scss"
 
 function DbuHomeAdmin() {
   return (
-    <div className='container'>
+    <div className="container">
       <div className="logo">
-      <img src={logo} alt="" />
+        <img src={logo} alt="" className="img-fluid" />
       </div>
     </div>
   );
