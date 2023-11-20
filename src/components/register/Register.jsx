@@ -20,6 +20,7 @@ function Register() {
     email: "",
     password: "",
     username: "",
+    rol: "",
   });
 
   const [error, setError] = useState("");
@@ -32,10 +33,10 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('')
+    setError("");
     try {
-      await signup(user.email, user.password, user.username);
-      navigate("/dashboard");
+      await signup(user.email, user.password, user.username, user.rol);
+      navigate(`/dashboard${user.rol === "admin" ? "admin" : ""}`);
     } catch (error) {
       console.log(error.code);
       if (error.code === "auth/invalid-email") {
@@ -43,7 +44,6 @@ function Register() {
       }
     }
   };
-
   return (
     <div className="containerr">
       {loading ? (
@@ -101,13 +101,19 @@ function Register() {
               </div>
 
               {/* Role */}
-              {/* <div className="form-group mb-4 input-group-lg">
+              <div className="form-group mb-4 input-group-lg">
                 <label htmlFor="UserRole">Rol</label>
-                <select className="form-control" id="UserRole">
+                <select
+                  className="form-control"
+                  id="rol"
+                  name="rol"
+                  onChange={handleChange}
+                >
+                  <option>Selecciona un rol</option>
                   <option value="admin">Admin</option>
                   <option value="obrero">Obrero</option>
                 </select>
-              </div> */}
+              </div>
 
               {/* Button submit */}
               <div className="text-center">

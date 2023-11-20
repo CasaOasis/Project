@@ -9,6 +9,7 @@ import { useAuth } from "../../context/authContext";
 
 function Dbu_sidebar() {
   const { user, logout, loading } = useAuth();
+  const navigate = useNavigate();
 
   const handleLout = async () => {
     await logout();
@@ -18,6 +19,7 @@ function Dbu_sidebar() {
 
   return (
     <div className="sidebar">
+      <p>Estes es el de administrador</p>
       <ul>
         <li>
           <ul>

@@ -2,7 +2,7 @@ import {React} from "react";
 
 
 import { Routes, Route, Outlet } from "react-router-dom";
-import Dbu_navbar from "../dashboardAdmin/navbar/dbu_navbar";
+import Dbu_navbar from "../dashboard/navbar/dbu_navbar";
 import Dbu_sidebar from "./sidebar/dbu_sidebar";
 import "./dashboard.scss"
 
@@ -11,7 +11,7 @@ import Miembros from "./pages/Miembros";
 import Programa from "./pages/Programa";
 import Registro from "./pages/Registro";
 
-function Dashboard() {
+function DashboardAdmin() {
   
   return (
     <div>
@@ -26,4 +26,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default DashboardAdmin;

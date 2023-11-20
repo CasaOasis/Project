@@ -7,7 +7,7 @@ import { useAuth } from "../context/authContext";
 
 function Login() {
   //Loading Screen
-  const [loading, setLoading] = useState(false); //set loading
+  const [loading, setLoading] = useState(true); //set loading
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
@@ -30,15 +30,23 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('')
-    try {
-      await login(user.email, user.password);
-      navigate("/dashboard");
-    } catch (error) {
-      console.log(error.code);
+  e.preventDefault();
+  setError('');
+  try {
+    const userCredential = await login(user.email, user.password);
+    const userData = userCredential.user;
+    if (userData) {
+      navigate(`/dashboard${userData.rol === 'admin' ? 'admin' : ''}`);
     }
-  };
+  } catch (error) {
+    console.error("Error:", error);
+    if (error.code) {
+      console.log("Código de error:", error.code);
+    } else {
+      console.log("No se pudo obtener el código de error.");
+    }
+  }
+};
   return (
     <div className="containerr">
       {loading ? ( //funtion loading
