@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.jpg";
 import "./login.css";
 import LoadingScreen from "../animations/LoadingScreen";
-import { useNavigate } from "react-router-dom";
+import { Await, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import Alert from "../Alert";
 
 function Login() {
   //Loading Screen
@@ -12,7 +13,7 @@ function Login() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 3000); //Time
+    }, 0); //Time
   }, []);
 
   //Login
@@ -22,7 +23,7 @@ function Login() {
   });
 
   const [error, setError] = useState("");
-  const { login } = useAuth();
+  const { login, resetPassword } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = ({ target: { name, value } }) => {
@@ -40,13 +41,18 @@ function Login() {
     }
   } catch (error) {
     console.error("Error:", error);
-    if (error.code) {
-      console.log("Código de error:", error.code);
-    } else {
-      console.log("No se pudo obtener el código de error.");
-    }
   }
 };
+
+const handleResetpassword = async () => {
+  if (!user.email) return setError("Por favor ingresa tu email");
+  try {
+    await resetPassword(user.email);
+    setError('El equipo de iglesia osasis te ha enviado un correo')
+  } catch (error) {
+    setError(error.message)
+  }
+}
   return (
     <div className="containerr">
       {loading ? ( //funtion loading
@@ -55,6 +61,11 @@ function Login() {
         <div className="login templete d-flex justify-content-center align-items-center 100-w vh-100">
           <div className="p-3 50-w rounded bg-white">
             <form onSubmit={handleSubmit}>
+              {/* Alert */}
+              <div className="alert">
+              {error && <Alert message={error} />}
+              </div>
+
               {/* Logo */}
               <div className="text-center">
                 <img
@@ -99,6 +110,13 @@ function Login() {
                 >
                   Ingresar
                 </button>
+              </div>
+              {/* Fotgot password */}
+              <div className="forgot-password text-center">
+                <i>¿No te recuerdas de tu contraseña? </i>
+                <a href="#!" onClick={handleResetpassword}>
+                  Presiona aqui
+                </a>
               </div>
             </form>
           </div>

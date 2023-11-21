@@ -75,9 +75,7 @@ function Dbu_sidebar() {
               <span className="text text-start">
                 <div className="settings">
                   <div className="mb-3">
-                    <label className="form-label">
-                      Sube tu foto de perfil
-                    </label>
+                    <label className="form-label">Sube tu foto de perfil</label>
                     <input
                       className="form-control"
                       type="file"
@@ -86,7 +84,9 @@ function Dbu_sidebar() {
                       onChange={handlechange}
                     ></input>
                     <div className="submit-image-profile text-center pt-4">
-                      <button className="btn btn-light" onClick={handleclick}>Cambiar imagen</button>
+                      <button className="btn btn-light" onClick={handleclick}>
+                        Cambiar imagen
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -127,7 +127,7 @@ function Dbu_sidebar() {
                 </div>
               </div>
               <p>
-                <FaIcons.FaUsers /> {user && user.email}
+                <FaIcons.FaAddressCard /> {user && user.email}
               </p>
             </div>
           </div>
@@ -162,7 +162,7 @@ function Dbu_sidebar() {
               className="w-100 d-inline-block px-1" //Clases de bootstrap
               activeclassname="active" //activeClassName active se activa cuando se le da click
             >
-              <FaIcons.FaUserPlus /> Registro
+              <FaIcons.FaUsersCog /> Programa del Servicio
             </NavLink>
           </li>
           <li>

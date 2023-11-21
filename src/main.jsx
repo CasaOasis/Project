@@ -1,6 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  BrowserRouter,
+} from "react-router-dom";
 import "./index.css";
 import Error from "./components/error/Error.jsx";
 
@@ -11,11 +16,10 @@ import Registro from "./components/dashboard/pages/Registro.jsx";
 import Programa from "./components/dashboard/pages/Programa.jsx";
 
 import DashboardAdmin from "./components/dashboardAdmin/dashboardadmin.jsx";
-import DbuHomeAdmin from  "./components/dashboardAdmin/pages/Home/DbuHome.jsx";
+import DbuHomeAdmin from "./components/dashboardAdmin/pages/Home/DbuHome.jsx";
 import MiembrosAdmin from "./components/dashboardAdmin/pages/Miembros.jsx";
 import RegistroAdmin from "./components/dashboardAdmin/pages/Registro.jsx";
 import ProgramaAdmin from "./components/dashboardAdmin/pages/Programa.jsx";
-
 
 import Home from "./components/home/Home.jsx";
 import Credo from "./components/home/pages/credo.jsx";
@@ -42,21 +46,22 @@ root.render(
             path="/dashboardadmin/*"
             element={
               <ProtectedRoute admin>
-                <DashboardAdmin/>
+                <DashboardAdmin />
               </ProtectedRoute>
             }
           >
             <Route index element={<DbuHomeAdmin />} />
-            <Route path="miembros" element={<MiembrosAdmin/>} />
+            <Route path="miembros" element={<MiembrosAdmin />} />
             <Route path="registro" element={<RegistroAdmin />} />
             <Route path="programa" element={<ProgramaAdmin />} />
+            <Route path="register" element={<Register />} />
           </Route>
           {/* Dashboard page */}
           <Route
             path="/dashboard/*"
             element={
               <ProtectedRoute obrero>
-                <Dashboard/>
+                <Dashboard />
               </ProtectedRoute>
             }
           >
@@ -68,7 +73,6 @@ root.render(
 
           {/* Login and register */}
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

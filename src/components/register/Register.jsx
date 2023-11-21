@@ -45,7 +45,7 @@ function Register() {
     }
   };
   return (
-    <div className="containerr">
+    <div className="container">
       {loading ? (
         <LoadingScreen />
       ) : (
