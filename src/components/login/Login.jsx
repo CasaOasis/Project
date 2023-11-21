@@ -5,6 +5,7 @@ import LoadingScreen from "../animations/LoadingScreen";
 import { Await, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import Alert from "../Alert";
+import { getRol } from "../context/authContext";
 
 function Login() {
   //Loading Screen
@@ -23,6 +24,7 @@ function Login() {
   });
 
   const [error, setError] = useState("");
+  const [loginError, setLoginError] = useState("");
   const { login, resetPassword } = useAuth();
   const navigate = useNavigate();
 
@@ -37,10 +39,36 @@ function Login() {
     const userCredential = await login(user.email, user.password);
     const userData = userCredential.user;
     if (userData) {
-      navigate(`/dashboard${userData.rol === 'admin' ? 'admin' : ''}`);
+      // Obtener el rol del usuario recién autenticado
+      const rol = await getRol(userData.uid);
+
+      // Redirigir según el rol
+      if (rol === "admin") {
+        // Redirigir a la ruta de administrador
+        navigate(`/dashboardadmin`);
+      } else if (rol === "obrero") {
+        // Redirigir a la ruta de obrero
+        navigate(`/dashboard`);
+      } else {
+        // Otro manejo de roles si es necesario
+        console.log("Rol desconocido");
+      }
     }
   } catch (error) {
     console.error("Error:", error);
+    // Verificar el tipo de error para mostrar un mensaje específico
+    if (
+      error.code === "auth/wrong-password" ||
+      error.code === "auth/user-not-found"
+    ) {
+      setLoginError(
+        "Credenciales incorrectas. Verifica tu correo y contraseña."
+      );
+    } else {
+      setLoginError(
+        "Parece que, tu correo o contraseña son incorrectas"
+      );
+    }
   }
 };
 
@@ -63,7 +91,8 @@ const handleResetpassword = async () => {
             <form onSubmit={handleSubmit}>
               {/* Alert */}
               <div className="alert">
-              {error && <Alert message={error} />}
+                {error && <Alert message={error} />}
+                {loginError && <Alert message={loginError} />}
               </div>
 
               {/* Logo */}

@@ -5,7 +5,8 @@ import {
   onAuthStateChanged,
   updateProfile,
   signOut,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  sendEmailVerification
 } from "firebase/auth";
 import { auth, firestore } from "../../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -17,11 +18,14 @@ export const useAuth = () => {
   return context;
 };
 
-async function getRol(uid) {
+export async function getRol(uid) {
   const docRef = doc(firestore, `users/${uid}`);
-  const docCifrate = await getDoc(docRef);
-  const infoFinal = docCifrate.data().rol;
-  return infoFinal;
+  const docSnapshot = await getDoc(docRef);
+  if (docSnapshot.exists()) {
+    return docSnapshot.data().rol;
+  } else {
+    throw new Error("No se encontró el documento del usuario");
+  }
 }
 
 export function AuthProvider({ children }) {
@@ -36,6 +40,9 @@ export function AuthProvider({ children }) {
         email,
         password
       );
+      sendEmailVerification(auth.currentUser).then(() =>{
+        console.log("Se ha enviado un correo de verificaion")
+      });
       const docuRef = doc(firestore, `users/${userInfo.user.uid}`);
       await setDoc(docuRef, { name: username, email: email, rol: rol });
       await updateProfile(auth.currentUser, { displayName: username });

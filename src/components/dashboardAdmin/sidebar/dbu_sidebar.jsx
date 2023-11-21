@@ -3,11 +3,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import "./dbu_sidebar.scss";
 import * as FaIcons from "react-icons/fa";
+
 import { useAuth } from "../../context/authContext";
 import icon1x1 from "../../../assets/icon1x1.jpg";
 import { FaHammer, FaUserShield } from "react-icons/fa";
 import { useEffect } from "react";
 import { Collapse } from "bootstrap";
+import Lottie from "lottie-react";
+import noverified from "../../../assets/animations/noverified.json";
+import verified from "../../../assets/animations/verified.json";
 
 //activeClassName active se activa cuando se le da click
 
@@ -27,6 +31,7 @@ function Dbu_sidebar() {
     };
   }, []);
 
+  console.log(user.emailVerified);
   const handlechange = async () => {};
 
   const handleclick = async () => {};
@@ -125,6 +130,33 @@ function Dbu_sidebar() {
               <p>
                 <FaIcons.FaAddressCard /> {user && user.email}
               </p>
+              {user && user.emailVerified ? (
+                <div className="d-flex ">
+                  <p className="text">
+                    <FaIcons.FaFingerprint />
+                    <i> Correo verificado</i>
+                  </p>
+                  <Lottie
+                    className="mx-auto d-block"
+                    animationData={verified}
+                    loop={false}
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                </div>
+              ) : (
+                <div className="d-flex ">
+                  <p className="text">
+                    <FaIcons.FaFingerprint />
+                    <i> Correo no verificado</i>
+                  </p>
+                  <Lottie
+                    className="mx-auto d-block"
+                    animationData={noverified}
+                    loop={false}
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                </div>
+              )}
             </div>
           </div>
           {/* Logout */}

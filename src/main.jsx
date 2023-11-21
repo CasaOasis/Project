@@ -72,7 +72,7 @@ root.render(
           </Route>
 
           {/* Login and register */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={ <Login />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

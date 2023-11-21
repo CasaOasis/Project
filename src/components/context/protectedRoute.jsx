@@ -5,18 +5,18 @@ export function ProtectedRoute({ admin, obrero, children }) {
   const { user, loading } = useAuth();
 
   if (loading) return <h1>Loading...</h1>;
-  if (!user) return <Navigate to="/login"/>;
-  
-  if (obrero && user.rol !== "obrero") {
-    // Si se espera un rol de obrero pero el usuario no es obrero
-    return <Navigate to="/dashboardadmin" />;
-}
+  const allowedRoutes = ["/login"]; // Rutas permitidas sin autenticación
 
-if (admin && user.rol !== "admin") {
-    // Si se espera un rol de administrador pero el usuario no es administrador
-    return <Navigate to="/dashboard" />;
-}
+  if (!user && !allowedRoutes.includes(window.location.pathname)) {
+    return <Navigate to="/login" />;
+  }
 
+  if ((obrero && user?.rol !== "obrero") || (admin && user?.rol !== "admin")) {
+    // Si se espera un rol específico pero el usuario no tiene ese rol, redirigir
+    return (
+      <Navigate to={user?.rol === "admin" ? "/dashboardadmin" : "/dashboard"} />
+    );
+  }
   
 
 
