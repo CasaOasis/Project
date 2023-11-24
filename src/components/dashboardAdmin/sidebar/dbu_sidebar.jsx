@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import React, { useState } from "react";
 import "./dbu_sidebar.scss";
 import * as FaIcons from "react-icons/fa";
 
@@ -16,7 +16,9 @@ import verified from "../../../assets/animations/verified.json";
 //activeClassName active se activa cuando se le da click
 
 function Dbu_sidebar() {
-  const { user, logout, loading } = useAuth();
+  
+  const { user, logout, loading, uploadProfilePicture } = useAuth();
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const externalContentCollapse = new Collapse(
@@ -31,10 +33,20 @@ function Dbu_sidebar() {
     };
   }, []);
 
-  console.log(user.emailVerified);
-  const handlechange = async () => {};
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
 
-  const handleclick = async () => {};
+  const handleUpload = () => {
+    if (selectedFile && user) {
+      uploadProfilePicture(selectedFile, user.uid); // Llama a la función de subida de foto de perfil del contexto de autenticación
+    } else {
+      console.log(
+        "No se ha seleccionado ningún archivo o no hay usuario autenticado."
+      );
+    }
+  };
 
   const handleLout = async () => {
     await logout();
@@ -76,18 +88,10 @@ function Dbu_sidebar() {
               <span className="text text-start">
                 <div className="settings">
                   <div className="mb-3">
-                    <label className="form-label">Sube tu foto de perfil</label>
-                    <input
-                      className="form-control"
-                      type="file"
-                      id="formFile"
-                      name="update"
-                      onChange={handlechange}
-                    ></input>
-                    <div className="submit-image-profile text-center pt-4">
-                      <button className="btn btn-light" onClick={handleclick}>
-                        Cambiar imagen
-                      </button>
+                    <div>
+                      <h2>Subir foto de perfil</h2>
+                      <input type="file" onChange={handleFileChange} />
+                      <button onClick={handleUpload}>Subir</button>
                     </div>
                   </div>
                 </div>
@@ -130,6 +134,7 @@ function Dbu_sidebar() {
               <p>
                 <FaIcons.FaAddressCard /> {user && user.email}
               </p>
+              {/* EmailVerified */}
               {user && user.emailVerified ? (
                 <div className="d-flex ">
                   <p className="text">
