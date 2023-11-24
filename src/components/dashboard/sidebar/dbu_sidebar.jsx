@@ -1,18 +1,30 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import React, { useState } from "react";
 import "./dbu_sidebar.scss";
 import * as FaIcons from "react-icons/fa";
+
 import { useAuth } from "../../context/authContext";
 import icon1x1 from "../../../assets/icon1x1.jpg";
 import { FaHammer, FaUserShield } from "react-icons/fa";
 import { useEffect } from "react";
 import { Collapse } from "bootstrap";
+import Lottie from "lottie-react";
+import noverified from "../../../assets/animations/noverified.json";
+import verified from "../../../assets/animations/verified.json";
 
 //activeClassName active se activa cuando se le da click
 
 function Dbu_sidebar() {
-  const { user, logout, loading } = useAuth();
+  const {
+    user,
+    logout,
+    loading,
+    uploadProfilePicture,
+    profileImage,
+    deleteProfilePicture,
+  } = useAuth();
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const externalContentCollapse = new Collapse(
@@ -27,12 +39,36 @@ function Dbu_sidebar() {
     };
   }, []);
 
-  const handlechange = async() =>{
-
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
   };
 
-  const handleclick = async () => {
+  const handleUpload = () => {
+    if (selectedFile && user) {
+      uploadProfilePicture(selectedFile, user.uid)
+        .then(() => {
+          window.location.reload(); // Recarga la página después de subir la imagen
+        })
+        .catch((error) => {
+          console.error("Error al subir la imagen:", error);
+        });
+    } else {
+      console.log(
+        "No se ha seleccionado ningún archivo o no hay usuario autenticado."
+      );
+    }
+  };
 
+  const handleDeletePhoto = async () => {
+    try {
+      if (user) {
+        await deleteProfilePicture(user.uid);
+        window.location.reload(); // Recarga la página después de eliminar la foto de perfil
+      }
+    } catch (error) {
+      console.error("Error al eliminar la foto de perfil:", error);
+    }
   };
 
   const handleLout = async () => {
@@ -55,15 +91,32 @@ function Dbu_sidebar() {
     <div className="sidebar">
       {/* UserProfile */}
       <div className="user-profile">
-        <div className="card bg-dark text-white  ">
+        <div className="card card-view text-white  ">
           {/* UserPhoto */}
           <div className="box position-relative">
             <div className="user-photo mt-5 position-relative ">
-              <img
-                src={icon1x1}
-                alt="..."
-                className="rounded-circle position-absolute top-0 start-50 translate-middle"
-              ></img>
+              <div>
+                {profileImage && (
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="rounded-circle position-absolute top-0 start-50 translate-middle"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+                {!profileImage && (
+                  <img
+                    src={icon1x1}
+                    alt="Default"
+                    className="rounded-circle position-absolute top-0 start-50 translate-middle "
+                  />
+                )}
+                {/* Renderiza la imagen de perfil si está disponible, de lo contrario, muestra una imagen por defecto */}
+              </div>
             </div>
           </div>
           {/* ExternalContent */}
@@ -75,22 +128,23 @@ function Dbu_sidebar() {
               <span className="text text-start">
                 <div className="settings">
                   <div className="mb-3">
-                    <label className="form-label">Sube tu foto de perfil</label>
-                    <input
-                      className="form-control"
-                      type="file"
-                      id="formFile"
-                      name="update"
-                      onChange={handlechange}
-                    ></input>
-                    <div className="submit-image-profile text-center pt-4">
-                      <button className="btn btn-light" onClick={handleclick}>
-                        Cambiar imagen
-                      </button>
+                    <div>
+                      <h2>Subir foto de perfil</h2>
+                      <input type="file" onChange={handleFileChange} />
+                      <button onClick={handleUpload}>Subir</button>
                     </div>
                   </div>
                 </div>
               </span>
+              <div className="delete-photo text-center p-3">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={handleDeletePhoto}
+                >
+                  Eliminar foto de perfil
+                </button>
+              </div>
             </div>
           </div>
           <nav className="navbar navbar-dark bg-dark m-0 p-0">
@@ -129,6 +183,34 @@ function Dbu_sidebar() {
               <p>
                 <FaIcons.FaAddressCard /> {user && user.email}
               </p>
+              {/* EmailVerified */}
+              {user && user.emailVerified ? (
+                <div className="d-flex ">
+                  <p className="text">
+                    <FaIcons.FaFingerprint />
+                    <i> Correo verificado</i>
+                  </p>
+                  <Lottie
+                    className="mx-auto d-block"
+                    animationData={verified}
+                    loop={false}
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                </div>
+              ) : (
+                <div className="d-flex ">
+                  <p className="text">
+                    <FaIcons.FaFingerprint />
+                    <i> Correo no verificado</i>
+                  </p>
+                  <Lottie
+                    className="mx-auto d-block"
+                    animationData={noverified}
+                    loop={false}
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                </div>
+              )}
             </div>
           </div>
           {/* Logout */}
@@ -162,7 +244,7 @@ function Dbu_sidebar() {
               className="w-100 d-inline-block px-1" //Clases de bootstrap
               activeclassname="active" //activeClassName active se activa cuando se le da click
             >
-              <FaIcons.FaUsersCog /> Programa del Servicio
+              <FaIcons.FaUsersCog /> Registro de Miembros
             </NavLink>
           </li>
           <li>
@@ -171,7 +253,7 @@ function Dbu_sidebar() {
               className="w-100 d-inline-block px-1" //Clases de bootstrap
               activeclassname="active" //activeClassName active se activa cuando se le da click
             >
-              <FaIcons.FaRegClipboard /> Programa
+              <FaIcons.FaRegClipboard /> Programa del Servicio
             </NavLink>
           </li>
         </ul>

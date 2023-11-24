@@ -1,10 +1,11 @@
 import { useAuth } from "./authContext";
 import { Navigate } from "react-router-dom";
+import LoadingScreen from "../animations/LoadingScreen";
 
 export function ProtectedRoute({ admin, obrero, children }) {
   const { user, loading } = useAuth();
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return <LoadingScreen/>;
   const allowedRoutes = ["/login"]; // Rutas permitidas sin autenticación
 
   if (!user && !allowedRoutes.includes(window.location.pathname)) {

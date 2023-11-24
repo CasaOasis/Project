@@ -6,6 +6,7 @@ import { Await, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import Alert from "../Alert";
 import { getRol } from "../context/authContext";
+import { getPhotoURL } from "../context/authContext";
 
 function Login() {
   //Loading Screen
@@ -41,6 +42,18 @@ function Login() {
     if (userData) {
       // Obtener el rol del usuario recién autenticado
       const rol = await getRol(userData.uid);
+      let photoURL = null;
+
+      if (userData.photoURL) {
+        // Obtener la URL de la imagen solo si existe un valor en userData.photoURL
+        photoURL = await getPhotoURL(userData.uid);
+      }
+
+      // Si hay una URL de imagen, almacenarla en el estado profileImage
+      if (photoURL) {
+        setProfileImage(photoURL);
+      }
+
 
       // Redirigir según el rol
       if (rol === "admin") {

@@ -17,7 +17,8 @@ import verified from "../../../assets/animations/verified.json";
 
 function Dbu_sidebar() {
   
-  const { user, logout, loading, uploadProfilePicture } = useAuth();
+  const { user, logout, loading, uploadProfilePicture, profileImage ,deleteProfilePicture } =
+    useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
@@ -37,16 +38,33 @@ function Dbu_sidebar() {
     const file = event.target.files[0];
     setSelectedFile(file);
   };
-
+  
   const handleUpload = () => {
     if (selectedFile && user) {
-      uploadProfilePicture(selectedFile, user.uid); // Llama a la función de subida de foto de perfil del contexto de autenticación
+      uploadProfilePicture(selectedFile, user.uid)
+        .then(() => {
+          window.location.reload(); // Recarga la página después de subir la imagen
+        })
+        .catch((error) => {
+          console.error("Error al subir la imagen:", error);
+        });
     } else {
       console.log(
         "No se ha seleccionado ningún archivo o no hay usuario autenticado."
       );
     }
   };
+
+  const handleDeletePhoto = async () => {
+  try {
+    if (user) {
+      await deleteProfilePicture(user.uid);
+      window.location.reload(); // Recarga la página después de eliminar la foto de perfil
+    }
+  } catch (error) {
+    console.error("Error al eliminar la foto de perfil:", error);
+  }
+};
 
   const handleLout = async () => {
     await logout();
@@ -68,15 +86,32 @@ function Dbu_sidebar() {
     <div className="sidebar">
       {/* UserProfile */}
       <div className="user-profile">
-        <div className="card bg-dark text-white  ">
+        <div className="card card-view text-white  ">
           {/* UserPhoto */}
           <div className="box position-relative">
             <div className="user-photo mt-5 position-relative ">
-              <img
-                src={icon1x1}
-                alt="..."
-                className="rounded-circle position-absolute top-0 start-50 translate-middle"
-              ></img>
+              <div>
+                {profileImage && (
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="rounded-circle position-absolute top-0 start-50 translate-middle"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+                {!profileImage && (
+                  <img
+                    src={icon1x1}
+                    alt="Default"
+                    className="rounded-circle position-absolute top-0 start-50 translate-middle "
+                  />
+                )}
+                {/* Renderiza la imagen de perfil si está disponible, de lo contrario, muestra una imagen por defecto */}
+              </div>
             </div>
           </div>
           {/* ExternalContent */}
@@ -96,6 +131,15 @@ function Dbu_sidebar() {
                   </div>
                 </div>
               </span>
+              <div className="delete-photo text-center p-3">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={handleDeletePhoto}
+                >
+                  Eliminar foto de perfil
+                </button>
+              </div>
             </div>
           </div>
           <nav className="navbar navbar-dark bg-dark m-0 p-0">

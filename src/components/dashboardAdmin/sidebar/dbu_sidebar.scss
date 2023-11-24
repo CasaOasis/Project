@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@1,100;1,200&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@1,100;1,200&display=swap");
 
 $light: #ffffff;
 $dark: #3a3a3a;
@@ -10,7 +10,7 @@ $darknav: #282828;
   font-family: "Overpass", sans-serif;
 }
 
-.flex{
+.flex {
   display: flex;
 }
 
@@ -26,29 +26,34 @@ $darknav: #282828;
     li {
       margin-bottom: 1rem;
       border-bottom: 1px solid $light;
-      a{
+      a {
         text-decoration: none;
         color: $light;
         font-size: 1.3rem;
-        &.active{
+        &.active {
           background-color: #555555;
           padding: 0.3rem;
         }
       }
     }
-    li:hover{
+    li:hover {
       background-color: #555555;
-          padding: 0.0rem;
-      a{
+      padding: 0rem;
+      a {
         font-size: 1.4rem;
       }
     }
-  }.box{
+  }
+  .box {
     height: 7rem;
-  }.custom-bg-dark {
-  background-color: #1c1c1c; /* Cambia este valor al color oscuro deseado */
-}
-  .user-photo img{
-    width:7rem;
+  }
+  .custom-bg-dark {
+    background-color: #1c1c1c; /* Cambia este valor al color oscuro deseado */
+  }
+  .card-view {
+    background-color: $darknav;
+  }
+  .user-photo img {
+    width: 7rem;
   }
 }
