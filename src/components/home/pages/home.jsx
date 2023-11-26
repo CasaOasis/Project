@@ -3,6 +3,7 @@ import React from 'react'
 function HomePage() {
   return (
     <div>
+      <p>Home</p>
       Home Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra
       nibh non tortor suscipit rhoncus. Donec quam turpis, efficitur vel
       hendrerit vel, feugiat vel est. Mauris vel urna aliquam mauris eleifend
