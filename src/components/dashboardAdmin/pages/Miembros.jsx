@@ -1,7 +1,11 @@
-const MiembrosAdmin = () => {
-  return (
-    <div>Miembros</div>
-  )
-}
+import React, { useEffect } from "react";
 
-export default MiembrosAdmin
+const MiembrosAdmin = () => {
+  useEffect(() => {
+    document.title = "Miembros"; // Cambia el título de la página aquí
+  }, []);
+
+  return <div>Miembros</div>;
+};
+
+export default MiembrosAdmin;

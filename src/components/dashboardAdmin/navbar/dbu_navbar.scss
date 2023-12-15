@@ -4,7 +4,7 @@ body{
 }
 
 $light: #ffffff;
-$dark: #3A3A3A;
+$dark: #3a3a3a;
 $darknav: #282828;
 
 
@@ -19,7 +19,7 @@ $darknav: #282828;
 
 .navbarr .label{
     width: 20rem;
-    height: 50px;
+    height: 52px;
     background-color: $darknav;
     color: $light;
 }
@@ -40,7 +40,7 @@ $darknav: #282828;
     visibility: hidden;
 }
 @media screen and (max-width: 1300px) {
-    .navbarr.label{
+    .navbarr .label{
     width: 20rem;
 }
 .navbar-menu{
