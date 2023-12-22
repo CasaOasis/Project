@@ -9,8 +9,6 @@ function Dbu_navbar() {
   const [pageTitle, setPageTitle] = useState("");
 
   useEffect(() => {
-    console.log("Location changed:", location.pathname);
-
     const routeToTitleMap = {
       "/dashboardadmin": "Dashboard",
       "/dashboardadmin/miembros": "Miembros",
@@ -23,12 +21,10 @@ function Dbu_navbar() {
     const currentRoute = location.pathname;
     const title = routeToTitleMap[currentRoute];
 
-    console.log("Title:", title);
 
     setPageTitle(title ? `Mi Sitio - ${title}` : "Oasis");
   }, [location.pathname]);
 
-  console.log("Page title:", pageTitle);
 
   return (
     <div>

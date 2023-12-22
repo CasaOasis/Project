@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-import "./dbu_sidebar.scss";
+import "./dbu_sidebarr.scss";
 import * as FaIcons from "react-icons/fa";
 
 import { useAuth } from "../../context/authContext";
