@@ -1,56 +1,137 @@
 .table-scroll {
-    width: 100%;
-  max-height: 50rem;
-  overflow-y: auto;
+  width: 100%;                /* La tabla ocupará todo el ancho disponible */
+  max-height: 100vh;          /* Limita la altura máxima de la tabla */
+  overflow-y: auto;           /* Scroll vertical si el contenido excede la altura */
+  overflow-x: auto;           /* Scroll horizontal si el contenido excede el ancho */
+  box-sizing: border-box;     /* Asegura que los márgenes y el padding no afecten el ancho */
 }
+
 .table {
+  width: 100%;                /* La tabla ocupa todo el ancho del contenedor */
+  border-collapse: collapse;  /* Elimina los bordes dobles */
+  table-layout: fixed;        /* Hace que las celdas tengan un tamaño consistente */
+  font-size: 1.3rem;          /* Tamaño de texto */
+  font-weight: 600;           /* Peso de la fuente */
+}
+
+/*Cards imagenes*/
+.cards-container{
   width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-size: 1.3rem;
-  font-weight: 600;
+}
+.cards-container img{
+  padding: 3rem 3rem;
+  width: 100%;                /* Ajusta el tamaño de la imagen para que ocupe el ancho del contenedor */
+  height: auto;               /* Mantiene la proporción original de la imagen */
+  max-width: 100%;            /* Limita el ancho de la imagen */
+  max-height: 100%;           /* Limita la altura de la imagen */
+  border-radius: 20%;
+  object-fit: cover;          /* Asegura que la imagen no se deforme */
 }
 
 .table thead {
-  position: sticky;
-  top: 0;
-  background-color: #fff;
+  position: sticky;           /* Fija el encabezado en la parte superior */
+  top: 0;                     /* El encabezado se mantendrá visible al hacer scroll */
+  background-color: #fff;     /* Fondo blanco para el encabezado */
+  z-index: 1;                 /* Asegura que el encabezado quede por encima del contenido */
 }
 
-.table th,
+.table th, 
 .table td {
-  padding: 3px;
-  text-align: left;
+  padding: 10px;              /* Espaciado en las celdas */
+  text-align: left;           /* Alineación del texto */
+  white-space: nowrap;        /* Evita que el texto se divida en varias líneas */
+  text-overflow: ellipsis;    /* Muestra puntos suspensivos si el contenido es largo */
+  overflow: hidden;           /* Oculta el contenido que se desborda */
 }
 
+.table img {
+  width: 100%;                /* Ajusta el tamaño de la imagen para que ocupe el ancho del contenedor */
+  height: auto;               /* Mantiene la proporción original de la imagen */
+  max-width: 50px;            /* Limita el ancho de la imagen */
+  max-height: 50px;           /* Limita la altura de la imagen */
+  border-radius: 50%;         /* Hace la imagen circular */
+  object-fit: cover;         /* Asegura que la imagen no se deforme */
+}
 
 .btn1 {
   font-size: 1.5rem;
   padding: 0.1rem;
-  /* Otros estilos */
 }
 
 .btn2 {
-    font-size: 2rem;
-    color: red;
-    padding: 0.1rem;
-    /* Otros estilos */
+  font-size: 2rem;
+  color: red;
+  padding: 0.1rem;
 }
 
-
-.btn3{
-    border-radius: 50px;
-    padding: 0 1rem;
+.btn3 {
+  border-radius: 50px;
+  padding: 0 1rem;
 }
 
 .custom-modal {
-  max-width: 50%; /* Establece el ancho máximo del Modal */
-  margin: auto; /* Centra el Modal horizontalmente */
+  max-width: 50%;
+  margin: auto;
   font-size: 2rem;
-  button{
+  button {
     font-size: 1.5rem;
   }
-  .logo{
+  .logo {
     width: 5rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .table-scroll {
+    width: 100%;                /* La tabla ocupará todo el ancho disponible */
+    max-height: 100%;           /* Limita la altura máxima de la tabla */
+    overflow-y: auto;           /* Scroll vertical si el contenido excede la altura */
+    overflow-x: auto;           /* Scroll horizontal si el contenido excede el ancho */
+  }
+
+  .table img {
+    width: 40px;                /* Ajusta el tamaño de las imágenes en pantallas más pequeñas */
+    height: auto;               /* Mantiene la proporción */
+    max-width: 40px;            /* Limita el ancho de la imagen */
+    max-height: 40px;           /* Limita la altura de la imagen */
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .table-scroll {
+    width: 100%;                /* La tabla ocupará todo el ancho disponible */
+    max-height: 90vh;           /* Limita la altura máxima de la tabla */
+    overflow-y: auto;           /* Scroll vertical si el contenido excede la altura */
+    overflow-x: auto;           /* Scroll horizontal si el contenido excede el ancho */
+  }
+
+  .table {
+    font-size: 1rem;            /* Reducir el tamaño de la fuente */
+  }
+
+  .table th, .table td {
+    font-size: 1rem;            /* Reducir el tamaño de la fuente en las celdas */
+    padding: 5px;               /* Ajustar el espaciado para pantallas pequeñas */
+  }
+
+  .table img {
+    width: 100%;                /* Reducir el tamaño de las imágenes en pantallas muy pequeñas */
+    height: auto;               /* Mantiene la proporción */
+    max-width: 50px;            /* Limita el ancho de la imagen */
+    max-height: 50px;           /* Limita la altura de la imagen */
+    border-radius: 50%;         /* Hace la imagen circular */
+  object-fit: cover; 
+  }
+
+  .btn1 {
+    font-size: 2rem;            /* Reducir el tamaño de los botones */
+  }
+
+  .btn2 {
+    font-size: 2rem;          /* Reducir el tamaño de los botones */
+  }
+
+  .btn3 {
+    padding: 0 0.5rem;          /* Reducir el espaciado de los botones */
   }
 }

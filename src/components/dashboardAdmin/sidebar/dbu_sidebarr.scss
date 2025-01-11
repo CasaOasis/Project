@@ -56,10 +56,103 @@ $darknav: #282828;
   .user-photo img {
     width: 7rem;
   }
+
+  .saludo{
+    color: #ffffff;
+  }
+
+  .update-profile {
+    font-size: 1.3rem;
+    text-align: center;
+    color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(40%, 40%);
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro detrás del ícono */
+    color: none; /* Color blanco para el ícono */
+    border: none;
+    border-radius: 50%;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .profile-menu {
+    margin-top: 20px;
+    padding: 2rem;
+    background-color: #252525;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba
+  }
+}
+
+.sidebar-container {
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-container.closed .sidebar {
+  width: 20rem;
+  overflow: hidden;
+}
+
+.sidebar-container.open .sidebar {
+  width: 20rem; /* Ajusta el tamaño según tu diseño */
+}
+
+.menu-toggle-btn {
+  position: fixed;
+  top: 20px;
+  left: 0px;
+  z-index: 1000;
+  font-size: 0px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  
 }
 
 @media screen and (max-width: 780px) {
-.sidebar{
-  width: 800px;
-}
+
+  .menu-toggle-btn {
+    position: fixed;
+    top: 0.5rem;
+    left: 1rem;
+    z-index: 10000;
+    font-size: 24px;
+    background-color: $dark;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+  }
+  
+  .sidebar {
+    width: 0; /* Inicialmente el sidebar está oculto */
+    position: fixed;
+    padding-top: 2rem;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #282828; /* El color del sidebar */
+    overflow: hidden;
+    transition: width 0.3s ease, transform 0.3s ease; /* Añadimos la transición de ancho y posición */
+    z-index: 1000;
+  }
+
+  .sidebar-container {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Cuando el sidebar está cerrado */
+  .sidebar-container.closed .sidebar {
+    transform: translateX(-100%); /* Desliza hacia la izquierda fuera de la vista */
+    width: 0;
+  }
+
+  /* Cuando el sidebar está abierto */
+  .sidebar-container.open .sidebar {
+    transform: translateX(0); /* Mueve el sidebar a su posición visible */
+    width: 100%; /* Ajusta el tamaño según tu diseño */
+  }
 }

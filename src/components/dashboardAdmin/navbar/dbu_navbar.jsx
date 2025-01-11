@@ -39,7 +39,6 @@ function Dbu_navbar() {
           </div>
           <div className="navbar-menu">
             {/* Agrega un ícono de menú que activará el sidebar */}
-            <FaIcons.FaBars className="menu-icon" />
           </div>
         </div>
       </div>

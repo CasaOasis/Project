@@ -1,205 +1,244 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import userPlaceholder from "../../../../assets/images/userPlaceholder.png";
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { firestore } from "../../../../firebase";
+import { addDoc, collection, serverTimestamp, updateDoc, doc } from "firebase/firestore";
+import { firestore, storage } from "../../../../firebase"; // Importamos Firestore y Storage
 import { Modal, Button } from "react-bootstrap";
 import DoneAnim from "../../../animations/DoneAnim";
 import "../../pages/styles.scss";
 import logo from "../../../../assets/logo.jpg";
-
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import "./new.scss";
+import { uploadImageToFirebase } from "../../../../firebase"; // Importa la función
 
 function New() {
-  const [userPhoto, setUserPhoto] = useState(userPlaceholder); // Estado para almacenar la foto del usuario
+  const [userPhoto, setUserPhoto] = useState(userPlaceholder);
   const [showModal, setShowModal] = useState(false);
-  const handleModalClose = () => {
-    setShowModal(false);
-    history.push('/miembros');
-  };
+  const [showCropperModal, setShowCropperModal] = useState(false);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const cropperRef = useRef(null);
 
-  // Función para manejar el cambio en el campo de archivo
+  const handleModalClose = () => setShowModal(false);
+  const handleCropperModalClose = () => setShowCropperModal(false);
+
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0]; // Obtener el archivo seleccionado
+    const selectedFile = e.target.files[0];
     const reader = new FileReader();
 
-    // Leer el archivo como una URL de datos
     reader.onloadend = () => {
-      setUserPhoto(reader.result); // Actualizar el estado con la URL de la imagen
+      setUserPhoto(reader.result);
+      setShowCropperModal(true);
     };
 
     if (selectedFile) {
-      reader.readAsDataURL(selectedFile); // Convertir el archivo a una URL de datos
+      reader.readAsDataURL(selectedFile);
     }
   };
 
   const handleAdd = async (e) => {
     e.preventDefault();
+
+    // Obtener la imagen recortada
+    const cropper = cropperRef.current?.cropper;
+    const croppedDataUrl = cropper?.getCroppedCanvas()?.toDataURL();
+    if (!croppedDataUrl) {
+      console.error("No se pudo obtener la imagen recortada.");
+      return;
+    }
+    setCroppedImage(croppedDataUrl);
+
     try {
-      const storage = getStorage(); // Obtener referencia al almacenamiento de Firebase
-      const storageRef = ref(storage);
-
-      // Obtener el archivo seleccionado
-      const selectedFile = e.target.formFile.files[0];
-
       const name = e.target.name.value;
       const lastname = e.target.lastname.value;
       const age = e.target.age.value;
       const phone = e.target.phone.value;
       const email = e.target.email.value;
 
-      // Generar un nombre de archivo basado en el ID del documento en Firestore
+      // Crear un nuevo miembro en Firestore
       const res = await addDoc(collection(firestore, "members"), {
-        name: name,
-        lastname: lastname,
-        age: age,
+        name,
+        lastname,
+        age,
         number: phone,
-        email: email,
+        email,
         timeStamp: serverTimestamp(),
       });
 
-      const fileId = res.id; // Obtener el ID generado por Firestore
-      const fileName = `${fileId}.jpg`; // Crear el nombre del archivo
+      const memberId = res.id; // ID del miembro recién creado
 
-      // Crear una referencia con el nombre del archivo basado en el ID
-      const fileRef = ref(storageRef, `members/picture/${fileName}`);
+      // Subir la imagen recortada a Firebase y obtener la URL
+      const downloadURL = await uploadImageToFirebase(croppedDataUrl, memberId);
 
-      // Subir el archivo al almacenamiento de Firebase
-      await uploadBytes(fileRef, selectedFile);
-
-      // Obtener la URL de descarga del archivo subido
-      const downloadURL = await getDownloadURL(fileRef);
-
-      // Actualizar el documento en Firestore con la URL del archivo
-      await updateDoc(doc(firestore, "members", res.id), {
+      // Actualizar el miembro con la URL de la foto
+      await updateDoc(doc(firestore, "members", memberId), {
         photoURL: downloadURL,
       });
 
-      // Obtener la URL de descarga del archivo subido
-      console.log(res.id);
-      setShowModal(true);
+      setShowModal(true); // Mostrar modal de éxito
     } catch (error) {
-      console.log(error);
+      console.error("Error al agregar el miembro:", error);
     }
   };
 
   return (
-    <div>
+    <div className="container-fluid form-container">
       <form onSubmit={handleAdd}>
-        <div className="container">
-          <div className="mb-3 p-5">
-            {/* <div className="mb-3"></div> */}
-            {/* Mostrar la imagen seleccionada */}
-            <img
-              src={userPhoto} // Utilizar el estado para mostrar la imagen seleccionada
-              alt=""
-              className="rounded-circle m-5"
-              style={{
-                width: "200px",
-                height: "200px",
-                objectFit: "cover",
-              }}
-            />
-            {/* Input para seleccionar un archivo */}
+        <div className="row justify-content-center my-4">
+          <div className="col-md-6 col-12 text-center">
+            <div style={{ width: "150px", height: "150px" }}>
+              <img
+                src={userPhoto}
+                alt="User"
+                className="rounded-circle mb-3"
+                style={{
+                  width: "150px",
+                  height: "150px",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
             <input
               className="form-control"
               type="file"
               id="formFile"
               name="formFile"
-              onChange={handleFileChange} // Manejar el cambio en el campo de archivo
-            ></input>
-          </div>
-          <div className="m-3">
-            <div className="form-group mb-4 input-group-lg">
-              <label>Nombre</label>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                name="name"
-                placeholder="Type"
-              />
-            </div>
-            <div className="form-group mb-4 input-group-lg">
-              <label>Apellido</label>
-              <input
-                type="text"
-                className="form-control"
-                id="lastname"
-                name="lastname"
-                placeholder="Type"
-              />
-            </div>
-            <div
-              style={{
-                height: "100px",
-              }}
-            ></div>
-          </div>
-          <div className="m-3">
-            <div className="form-group mb-4 input-group-lg">
-              <label>Edad</label>
-              <input
-                type="text"
-                className="form-control"
-                id="age"
-                name="age"
-                placeholder="Type"
-              />
-            </div>
-            <div className="form-group mb-4 input-group-lg">
-              <label>Numero</label>
-              <input
-                type="text"
-                className="form-control"
-                id="phone"
-                name="phone"
-                placeholder="Type"
-              />
-            </div>
-            <div className="form-group mb-4 input-group-lg">
-              <label>Correo</label>
-              <input
-                type="text"
-                className="form-control"
-                id="email"
-                name="email"
-                placeholder="Type"
-              />
-            </div>
-            <button type="submit" className="btn btn-dark btn-lg">
-              Registrar
-            </button>
+              onChange={handleFileChange}
+            />
           </div>
         </div>
+
+        <div className="row">
+          <div className="col-md-6 col-12 mb-3">
+            <label>Nombre</label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              name="name"
+              placeholder="Ingresa el nombre"
+              required
+            />
+          </div>
+          <div className="col-md-6 col-12 mb-3">
+            <label>Apellido</label>
+            <input
+              type="text"
+              className="form-control"
+              id="lastname"
+              name="lastname"
+              placeholder="Ingresa el apellido"
+              required
+            />
+          </div>
+          <div className="col-md-6 col-12 mb-3">
+            <label>Edad</label>
+            <input
+              type="number"
+              className="form-control"
+              id="age"
+              name="age"
+              placeholder="Ingresa la edad"
+              required
+            />
+          </div>
+          <div className="col-md-6 col-12 mb-3">
+            <label>Número de Teléfono</label>
+            <input
+              type="tel"
+              className="form-control"
+              id="phone"
+              name="phone"
+              placeholder="Ingresa el número"
+              required
+            />
+          </div>
+          <div className="col-12 mb-3">
+            <label>Correo Electrónico</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              name="email"
+              placeholder="Ingresa el correo"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="text-center">
+          <button type="submit" className="btn btn-dark btn-lg">
+            Registrar
+          </button>
+        </div>
       </form>
-      <div>
-        <Modal
-          show={showModal}
-          onHide={handleModalClose}
-          centered
-          dialogClassName="custom-modal"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title><><img src={logo} alt="Logo" className="logo"/></></Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <i>¡Miembro agregado con éxito!</i>
-            <DoneAnim />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="btn btn-dark" onClick={handleModalClose}>
-              Listo
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+
+      <Modal show={showModal} onHide={handleModalClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <img src={logo} alt="Logo" className="logo" />
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>¡Miembro agregado con éxito!</p>
+          <DoneAnim />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="btn btn-dark" onClick={handleModalClose}>
+            Listo
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showCropperModal} onHide={handleCropperModalClose} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Recorta tu imagen</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div
+            style={{
+              width: "100%",
+              height: "500px",
+              maxWidth: "100%",
+              position: "relative",
+            }}
+          >
+            <Cropper
+              ref={cropperRef}
+              src={userPhoto}
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "block",
+              }}
+              aspectRatio={1}
+              guides={false}
+              viewMode={2}
+              movable={true}
+              zoomable={true}
+              cropBoxResizable={true}
+              cropBoxMovable={true}
+            />
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCropperModalClose}>
+            Cancelar
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              const cropper = cropperRef.current?.cropper;
+              const croppedDataUrl = cropper?.getCroppedCanvas()?.toDataURL();
+              if (croppedDataUrl) {
+                setUserPhoto(croppedDataUrl);
+                setShowCropperModal(false);
+              }
+            }}
+          >
+            Aceptar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

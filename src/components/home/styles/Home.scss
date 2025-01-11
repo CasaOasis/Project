@@ -1,0 +1,155 @@
+.homepage {
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Esto asegura que la página ocupe todo el alto de la pantalla */
+    .location{
+        padding: 2rem 0rem;
+        text-align: center;
+        font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #333;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        width: 60rem;
+        height: 35rem;
+        
+        iframe{
+            padding: 5rem 0rem;
+        }
+    }
+    .carousel {
+      flex-grow: 1; /* Esto hace que el carrusel ocupe el espacio restante */
+    }
+  
+    .cards-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3rem 10rem;
+      
+        .cards-title {
+          margin-bottom: 2rem;
+          text-align: center;
+      
+          h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #333;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+          }
+        }
+      
+        .cards-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 3rem;
+          width: 100%;
+          padding: 1rem;
+      
+          .card-container {
+            position: relative;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-radius: 10px; /* Borde redondeado */
+            overflow: hidden;
+      
+            &:hover {
+              transform: scale(1.05);
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            }
+      
+            .card-img {
+              width: 100%;
+              height: 200px;
+              object-fit: cover;
+              border-radius: 10px;
+              transition: transform 0.3s ease-in-out;
+            }
+      
+            .card-body {
+              padding: 2rem; /* Espaciado interno de las tarjetas */
+              background-color: #fff;
+              text-align: center;
+              border-radius: 10px;
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      
+              .card-title {
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 1rem;
+                color: #333;
+              }
+      
+              .card-text {
+                font-size: 1rem;
+                color: #666;
+                line-height: 1.5;
+              }
+            }
+          }
+        }
+      
+    // Contenedor de Cards
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // Hace que las cards sean responsivas
+      gap: 2rem;
+      width: 100%;
+      padding: 1rem; // Añadido padding para los bordes de las cards
+
+      // Estilo individual de cada card
+      .card-container {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; // Transición suave para transformaciones
+        position: relative;
+
+        &:hover {
+          transform: scale(1.05); // Efecto de escala al pasar el cursor
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); // Sombra para resaltar la card
+        }
+      }
+    }
+  }
+
+  // Estilo para la sección de Cards para evitar que se sobrepongan con el navbar
+  .cards-section {
+    position: relative; /* Mantener la jerarquía dentro del diseño */
+    z-index: 1; /* Asegura que las cards no se desplacen encima del navbar */
+  }
+
+  // Responsividad para pantallas pequeñas
+  @media (max-width: 768px) {
+    .location{
+        padding: 2rem 0rem;
+        text-align: center;
+        font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #333;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        width: 20rem;
+        height: 30rem;
+
+        iframe{
+            padding: 2rem 0rem 10rem;
+        }
+    }
+    .cards-section {
+        padding: 3rem 0rem;}
+    .carousel-caption h3 {
+      font-size: 1.8rem; // Ajusta el tamaño del texto en pantallas pequeñas
+    }
+
+    .cards-title h2 {
+      font-size: 2rem; // Tamaño de fuente más pequeño para el título
+    }
+
+    .cards-grid {
+      grid-template-columns: 1fr; /* En pantallas pequeñas, las cards se apilan en una sola columna */
+      padding: 0; /* Elimina el padding para mejorar el espacio */
+    }
+  }
+}

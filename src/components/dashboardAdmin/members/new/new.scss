@@ -1,0 +1,18 @@
+/* Para pantallas grandes */
+.form-container {
+    padding: 10rem 20rem ; /* Ajusta este valor según el padding que desees */
+  }
+  
+    /* Para pantallas pequeñas (menos de 780px) */
+    @media screen and (max-width: 1280px) {
+        .form-container {
+          padding: 5rem 10rem;
+        }
+      }
+
+  /* Para pantallas pequeñas (menos de 780px) */
+  @media screen and (max-width: 780px) {
+    .form-container {
+      padding: 3rem;
+    }
+  }

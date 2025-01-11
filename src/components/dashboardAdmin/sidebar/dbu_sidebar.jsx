@@ -1,72 +1,57 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from "react";
 import "./dbu_sidebarr.scss";
 import * as FaIcons from "react-icons/fa";
-
+import { FaCamera } from "react-icons/fa";
 import { useAuth } from "../../context/authContext";
 import icon1x1 from "../../../assets/icon1x1.jpg";
 import { FaHammer, FaUserShield } from "react-icons/fa";
-import { useEffect } from "react";
 import { Collapse } from "bootstrap";
 import Lottie from "lottie-react";
 import noverified from "../../../assets/animations/noverified.json";
 import verified from "../../../assets/animations/verified.json";
 
-//activeClassName active se activa cuando se le da click
-
 function Dbu_sidebar() {
-  
-  const { user, logout, loading, uploadProfilePicture, profileImage ,deleteProfilePicture } =
-    useAuth();
+  const { user, logout, loading, uploadProfilePicture, profileImage, deleteProfilePicture } = useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isMenuVisible, setMenuVisible] = useState(false); // Estado para controlar la visibilidad del menú de cambio de foto
 
-  useEffect(() => {
-    const externalContentCollapse = new Collapse(
-      document.getElementById("navbarToggleExternalContent"),
-      {
-        toggle: false, // Para inicializar el colapso sin abrirlo
-      }
-    );
-
-    return () => {
-      externalContentCollapse.dispose(); // Limpiar el colapso cuando se desmonte el componente
-    };
-  }, []);
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
+  const toggleMenu = () => setMenuVisible(!isMenuVisible); // Alternar la visibilidad del menú
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
   };
-  
+
   const handleUpload = () => {
     if (selectedFile && user) {
       uploadProfilePicture(selectedFile, user.uid)
         .then(() => {
-          window.location.reload(); // Recarga la página después de subir la imagen
+          window.location.reload(); // Recargar después de subir la imagen
         })
         .catch((error) => {
           console.error("Error al subir la imagen:", error);
         });
     } else {
-      console.log(
-        "No se ha seleccionado ningún archivo o no hay usuario autenticado."
-      );
+      console.log("No se ha seleccionado ningún archivo o no hay usuario autenticado.");
     }
   };
 
   const handleDeletePhoto = async () => {
-  try {
-    if (user) {
-      await deleteProfilePicture(user.uid);
-      window.location.reload(); // Recarga la página después de eliminar la foto de perfil
+    try {
+      if (user) {
+        await deleteProfilePicture(user.uid);
+        window.location.reload(); // Recargar después de eliminar la foto de perfil
+      }
+    } catch (error) {
+      console.error("Error al eliminar la foto de perfil:", error);
     }
-  } catch (error) {
-    console.error("Error al eliminar la foto de perfil:", error);
-  }
-};
+  };
 
-  const handleLout = async () => {
+  const handleLogout = async () => {
     await logout();
   };
 
@@ -83,184 +68,151 @@ function Dbu_sidebar() {
   };
 
   return (
-    <div className="sidebar">
-      {/* UserProfile */}
-      <div className="user-profile">
-        <div className="card card-view text-white  ">
-          {/* UserPhoto */}
-          <div className="box position-relative">
-            <div className="user-photo mt-5 position-relative ">
-              <div>
-                {profileImage && (
-                  <img
-                    src={profileImage}
-                    alt="Profile"
-                    className="rounded-circle position-absolute top-0 start-50 translate-middle"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      objectFit: "cover",
-                    }}
-                  />
-                )}
-                {!profileImage && (
-                  <img
-                    src={icon1x1}
-                    alt="Default"
-                    className="rounded-circle position-absolute top-0 start-50 translate-middle "
-                  />
-                )}
-                {/* Renderiza la imagen de perfil si está disponible, de lo contrario, muestra una imagen por defecto */}
+    <div className={`sidebar-container ${isSidebarOpen ? "open" : "closed"}`}>
+      {/* Botón para abrir/cerrar el sidebar */}
+      <button className="menu-toggle-btn btn btn-dark" onClick={toggleSidebar}>
+        <FaIcons.FaBars />
+      </button>
+
+      <div className="sidebar">
+        {/* UserProfile */}
+        <div className="user-profile">
+          
+          <div className="card card-view text-white">
+            {/* UserPhoto */}
+            <div className="box position-relative">
+              <div className="user-photo mt-5 position-relative">
+                <div>
+                  {profileImage ? (
+                    <img
+                      src={profileImage}
+                      alt="Profile"
+                      className="rounded-circle position-absolute top-0 start-50 translate-middle"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={icon1x1}
+                      alt="Default"
+                      className="rounded-circle position-absolute top-0 start-50 translate-middle"
+                    />
+                    
+                  )}
+                </div>
+                 {/* Toggle Menu Button */}
+            <button className="btn update-profile" onClick={toggleMenu}>
+            <FaCamera />  
+                        </button>
               </div>
             </div>
-          </div>
-          {/* ExternalContent */}
-          <div className="collapse p-0 m-0" id="navbarToggleExternalContent">
-            <div className="bg-dark p-4">
-              <h5 className="text-white h4 text-center fs-4 fw-bold">
-                Ajustes
-              </h5>
-              <span className="text text-start">
-                <div className="settings">
-                  <div className="mb-3">
-                    <div>
-                      <h2>Subir foto de perfil</h2>
-                      <input type="file" onChange={handleFileChange} />
-                      <button onClick={handleUpload}>Subir</button>
-                    </div>
+           
+            
+            {/* Menú de cambiar foto */}
+            {isMenuVisible && (
+              <div className="profile-menu mt-3">
+                <div className="mb-3">
+                  <h4>Subir Foto de Perfil</h4>
+                  <input type="file" onChange={handleFileChange} />
+                  <button className="btn btn-primary mt-2" onClick={handleUpload}>
+                    Subir
+                  </button>
+                </div>
+                <div>
+                  <button className="btn btn-danger" onClick={handleDeletePhoto}>
+                    Eliminar Foto de Perfil
+                  </button>
+                </div>
+              </div>
+            )}
+            
+            {/* UserInfo */}
+            <div className="userInfo custom-bg-dark p-3">
+              <h2 className="fs-5 pb-3 saludo">
+                <FaIcons.FaUser /> <i className="fw-bolder">¡Hola!</i> {user && user.displayName}
+              </h2>
+              <div className="userInfo-sub ms-4">
+                <div>
+                  <div className="rol">
+                    {renderUserRoleIcon(user)}
+                    <i> </i>
+                    {user.rol}
                   </div>
                 </div>
-              </span>
-              <div className="delete-photo text-center p-3">
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={handleDeletePhoto}
-                >
-                  Eliminar foto de perfil
-                </button>
+                <p>
+                  <FaIcons.FaAddressCard /> {user && user.email}
+                </p>
+                {/* EmailVerified */}
+                {user && user.emailVerified ? (
+                  <div className="d-flex">
+                    <p className="text">
+                      <FaIcons.FaFingerprint />
+                      <i> Correo verificado</i>
+                    </p>
+                    <Lottie
+                      className="mx-auto d-block"
+                      animationData={verified}
+                      loop={false}
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                  </div>
+                ) : (
+                  <div className="d-flex">
+                    <p className="text">
+                      <FaIcons.FaFingerprint />
+                      <i> Correo no verificado</i>
+                    </p>
+                    <Lottie
+                      className="mx-auto d-block"
+                      animationData={noverified}
+                      loop={false}
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-          <nav className="navbar navbar-dark bg-dark m-0 p-0">
-            <div className="container-fluid d-flex">
-              <div className="tittle ">
-                <p className="m-0 fs-5">Perfil</p>
-              </div>
+            {/* Logout */}
+            <div className="btn-logout text-end p-3">
               <button
-                className="navbar-toggler p-0 m-0"
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarToggleExternalContent"
-                aria-controls="navbarToggleExternalContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
+                className="btn btn-light"
+                onClick={handleLogout}
               >
-                <span className="navbar-toggler-icon"></span>
+                <FaIcons.FaArrowCircleLeft /> Logout
               </button>
             </div>
-          </nav>
-          {/* UserInfo */}
-          <div className="userInfo custom-bg-dark p-3">
-            <h2 className="fs-5 pb-3">
-              {" "}
-              <FaIcons.FaUser /> <i className="fw-bolder">¡Hola!</i>{" "}
-              {user && user.displayName}
-            </h2>
-            <div className="userInfo-sub ms-4">
-              <div>
-                <div className="rol ">
-                  {renderUserRoleIcon(user)}
-                  <i> </i>
-                  {user.rol}
-                </div>
-              </div>
-              <p>
-                <FaIcons.FaAddressCard /> {user && user.email}
-              </p>
-              {/* EmailVerified */}
-              {user && user.emailVerified ? (
-                <div className="d-flex ">
-                  <p className="text">
-                    <FaIcons.FaFingerprint />
-                    <i> Correo verificado</i>
-                  </p>
-                  <Lottie
-                    className="mx-auto d-block"
-                    animationData={verified}
-                    loop={false}
-                    style={{ width: "50px", height: "50px" }}
-                  />
-                </div>
-              ) : (
-                <div className="d-flex ">
-                  <p className="text">
-                    <FaIcons.FaFingerprint />
-                    <i> Correo no verificado</i>
-                  </p>
-                  <Lottie
-                    className="mx-auto d-block"
-                    animationData={noverified}
-                    loop={false}
-                    style={{ width: "50px", height: "50px" }}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          {/* Logout */}
-          <div className="btn-logout text-end p-3">
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={handleLout}
-            >
-              <FaIcons.FaArrowCircleLeft /> Logout
-            </button>
           </div>
         </div>
-      </div>
 
-      {/* Sidebar */}
-      <div className="menu">
-        <ul>
-          <li>
-            <NavLink
-              to="miembros"
-              className="w-100 d-inline-block px-1" //Clases de bootstrap
-              activeclassname="active" //activeClassName active se activa cuando se le da click
-            >
-              <FaIcons.FaUsers /> Miembros
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="registro"
-              className="w-100 d-inline-block px-1" //Clases de bootstrap
-              activeclassname="active" //activeClassName active se activa cuando se le da click
-            >
-              <FaIcons.FaUsersCog /> Registro de Miembros
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="programa"
-              className="w-100 d-inline-block px-1" //Clases de bootstrap
-              activeclassname="active" //activeClassName active se activa cuando se le da click
-            >
-              <FaIcons.FaRegClipboard /> Programa del Servicio
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="register"
-              className="w-100 d-inline-block px-1" //Clases de bootstrap
-              activeclassname="active" //activeClassName active se activa cuando se le da click
-            >
-              <FaIcons.FaUserPlus /> Registro de usuarios
-            </NavLink>
-          </li>
-        </ul>
+        {/* Sidebar Menu */}
+        <div className="menu">
+          <ul>
+            <li>
+              <NavLink to="miembros" className="w-100 d-inline-block px-1">
+                <FaIcons.FaUsers /> Miembros
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="registro" className="w-100 d-inline-block px-1">
+                <FaIcons.FaUsersCog /> Registro de Miembros
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="programa" className="w-100 d-inline-block px-1">
+                <FaIcons.FaRegClipboard /> Programa del Servicio
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="register" className="w-100 d-inline-block px-1">
+                <FaIcons.FaUserPlus /> Registro de usuarios
+              </NavLink>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

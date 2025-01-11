@@ -39,6 +39,16 @@ function Navbar() {
                   ¿Quienes somos?
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="about" className="w-100 d-inline-block px-1">
+                  Testimonios
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="about" className="w-100 d-inline-block px-1">
+                  Predicas 
+                </NavLink>
+              </li>
             </ul>
           </div>
           <div className="social">

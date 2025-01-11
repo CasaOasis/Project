@@ -50,6 +50,8 @@ function Footer() {
               <h2>Horarios de servicios</h2>
               <h3>Domingos a las 10:00 AM</h3>
               <h3>Martes a las 7:00 PM</h3>
+              <h3>Jueves a las 7:00 PM</h3>
+              <h3>Sabado a las 7:00 PM</h3>
               <h3>Domingos a las 7:00 PM</h3>
             </div>
           </div>

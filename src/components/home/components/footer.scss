@@ -13,7 +13,7 @@ $darknav: #282828;
     width: 100%;
     padding: 4rem 0rem 0rem 0rem;
     .img {
-      padding: 0rem 12rem;
+      padding: 0rem 10rem;
       img {
         width: 100%;
       }
@@ -81,15 +81,24 @@ $darknav: #282828;
 @media screen and (max-width: 650px) {
   .footer {
     flex-direction: column;
+    .start{
+      .social{
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0rem;
+    }
+    }
   }
+  
 }
 
 /* Media Queries para ajustar el ancho del contenedor en pantallas más pequeñas */
 @media screen and (max-width: 1268px) {
   .footer {
+    flex-direction: column;
     .start{
         .img{
-            padding: 0rem 4rem;
+            padding: 0rem 5rem;
         }
     }
     .end {
